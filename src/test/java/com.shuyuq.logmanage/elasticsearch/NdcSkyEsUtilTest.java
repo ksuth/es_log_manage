@@ -1,10 +1,10 @@
-package com.travelsky.cdp.ndcsky.base.elasticsearch;
+package com.shuyuq.logmanage.elasticsearch;
 
 
-import com.travelsky.cdp.ndcsky.base.BaseApplication;
-import com.travelsky.cdp.ndcsky.base.compent.RedisCompent;
-import com.travelsky.cdp.ndcsky.base.elasticsearch.dto.EsLog;
-import com.travelsky.cdp.ndcsky.base.util.JsonUtil;
+
+import com.shuyuq.logmanage.WebApplication;
+import com.shuyuq.logmanage.elasticsearch.dto.EsLog;
+import com.shuyuq.logmanage.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -36,7 +36,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -47,10 +46,9 @@ import java.util.Map;
 /**
  * ES查询demo示例
  */
-@ContextConfiguration(classes = RedisCompent.class)
-@ActiveProfiles("base")
+@ActiveProfiles("tst")
 @WebAppConfiguration
-@SpringBootTest(classes = BaseApplication.class)
+@SpringBootTest(classes = WebApplication.class)
 @RunWith(SpringRunner.class)
 @Slf4j
 public class NdcSkyEsUtilTest {
@@ -92,11 +90,11 @@ public class NdcSkyEsUtilTest {
     @Ignore
     @Test
     public void createTemplete() throws IOException {
-        PutIndexTemplateRequest request = new PutIndexTemplateRequest("cdpsap-ndcskys-test");
+        PutIndexTemplateRequest request = new PutIndexTemplateRequest("shuyuq-test");
         request.source("{\n" +
                 "    \"order\" : 0,\n" +
                 "    \"index_patterns\" : [\n" +
-                "      \"cdpsap_ndcskys-test-*\"\n" +
+                "      \"shuyuq-test-*\"\n" +
                 "    ],\n" +
                 "    \"settings\" : {\n" +
                 "      \"index\" : {\n" +
@@ -575,7 +573,7 @@ public class NdcSkyEsUtilTest {
     @Ignore
     @Test
     public void validateTemplete() throws IOException {
-        IndexTemplatesExistRequest request = new IndexTemplatesExistRequest("cdpsap-ndcskys-test");
+        IndexTemplatesExistRequest request = new IndexTemplatesExistRequest("shuyuq-test");
         request.setMasterNodeTimeout(TimeValue.timeValueMinutes(1));
         request.setMasterNodeTimeout("1m");
         request.setLocal(true);
@@ -591,7 +589,7 @@ public class NdcSkyEsUtilTest {
     @Ignore
     @Test
     public void createEsIndexTest() throws IOException {
-        CreateIndexRequest request = new CreateIndexRequest("cdpsap_ndcskys-test-20200907");
+        CreateIndexRequest request = new CreateIndexRequest("shuyuq-test-20200907");
         request.settings(Settings.builder()
                 .put("index.number_of_shards", 3)
                 .put("index.number_of_replicas", 2)
@@ -616,10 +614,10 @@ public class NdcSkyEsUtilTest {
     @Test
     @Ignore
     public void getIndexTest() throws IOException {
-        GetIndexRequest request = new GetIndexRequest("cdpsap_ndcskys-test-20200907");
+        GetIndexRequest request = new GetIndexRequest("shuyuq-test-20200907");
         request.includeDefaults(true);
         GetIndexResponse getIndexResponse = client.indices().get(request, RequestOptions.DEFAULT);
-        String type = getIndexResponse.getMappings().get("cdpsap_ndcskys-test-20200907.type").type();
+        String type = getIndexResponse.getMappings().get("shuyuq-test-20200907").type();
         System.out.println(getIndexResponse);
     }
 
@@ -630,7 +628,7 @@ public class NdcSkyEsUtilTest {
     @Ignore
     public void pushMessage() {
         request = new IndexRequest(
-                "cdpsap_ndcskys-test-20200907",
+                "shuyuq-test-20200907",
                 "_doc",
                 "2");
         String jsonString = "{" +
@@ -654,7 +652,7 @@ public class NdcSkyEsUtilTest {
     @Test
     public void getMessageByDocId() throws IOException {
         GetRequest request = new GetRequest(
-                "cdpsap_ndcskys-test-20200907",
+                "shuyuq-test-20200907",
                 "_doc",
                 "1");
 //        request.storedFields("message");
@@ -670,12 +668,12 @@ public class NdcSkyEsUtilTest {
     @Test
     public void multiResultSearch() throws IOException {
         MultiSearchRequest request = new MultiSearchRequest();
-        SearchRequest firstSearchRequest = new SearchRequest("cdpsap_ndcskys-test-20200907");
+        SearchRequest firstSearchRequest = new SearchRequest("shuyuq-test-20200907");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("user", "shuyuq"));
         firstSearchRequest.source(searchSourceBuilder);
         request.add(firstSearchRequest);
-        SearchRequest secondSearchRequest = new SearchRequest("cdpsap_ndcskys-test-20200907");
+        SearchRequest secondSearchRequest = new SearchRequest("shuyuq-test-20200907");
         searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchQuery("message", "trying out Elasticsearch"));
         secondSearchRequest.source(searchSourceBuilder);
