@@ -1,0 +1,29 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /eslogmanange
+
+
+spring:
+  devtools:
+    restart:
+      enabled: false  #开启热部署
+  profiles:
+    include: tst_es
+debug: true
+
+swagger2:
+  enable: true
+
+## false 注册自定义发送短信服务  true 注册真实短信服务
+registerMsgBean:
+  shopping:
+    sendMsg: false
+
+##动态注入bean判断条件
+handCreateBean:
+  external:
+    aggProxy: true
+  report:
+    reportProxy: true
+
