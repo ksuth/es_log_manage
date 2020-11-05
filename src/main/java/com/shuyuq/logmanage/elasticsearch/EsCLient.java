@@ -44,7 +44,7 @@ public class EsCLient {
      *
      * @return the rest high level client
      */
-    @Bean(value = "ndcskyEsClient")
+    @Bean(value = "esClient")
     public RestHighLevelClient elasticsearchClient() {
         /*在没有配置的情况下不添加client*/
         if ("username".equals(properties.getUsername())) {

@@ -51,7 +51,7 @@ import java.util.Map;
 @SpringBootTest(classes = WebApplication.class)
 @RunWith(SpringRunner.class)
 @Slf4j
-public class NdcSkyEsUtilTest {
+public class EsUtilTest {
 
     @Autowired
     private EsComponent esUtil;

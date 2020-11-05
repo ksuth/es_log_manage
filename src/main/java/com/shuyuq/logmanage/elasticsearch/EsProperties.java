@@ -6,13 +6,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * ndcsky es配置文件
+ *  es配置文件
  *
  * @version 1.1.4
  */
 @Component
 @Data
-@ConfigurationProperties(prefix = "ndcsky.es")
+@ConfigurationProperties(prefix = "shuyuq.es")
 public class EsProperties {
     @Value("clusterNodes")
     private String[] clusterNodes;

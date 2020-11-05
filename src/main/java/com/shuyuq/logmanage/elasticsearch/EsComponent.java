@@ -48,7 +48,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * NDCSKY ES操作封装
+ *  ES操作封装
  *
  * @version 1.1.4
  */
@@ -124,10 +124,10 @@ public class EsComponent {
     /**
      * 创建ES的index模板
      *
-     * @param tempName 模板名称 示例:cdpsap-ndcsky-test
+     * @param tempName 模板名称 示例:shuyuq-test
      * @throws IOException IO异常
      */
-    public void createNdcskyEsTemplete(String tempName) throws IOException {
+    public void createEsTemplete(String tempName) throws IOException {
         String esTemp = readEsTemp();
         PutIndexTemplateRequest request = new PutIndexTemplateRequest(tempName);
         request.source(esTemp, XContentType.JSON);

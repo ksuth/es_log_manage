@@ -3,7 +3,7 @@ package com.shuyuq.logmanage.elasticsearch;
 import java.util.List;
 
 /**
- * 解析NDCSKY查询ES返回结果
+ * 解析查询ES返回结果
  *
  * @param <T> parameter
  * @version 1.1.4
