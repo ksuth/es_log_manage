@@ -1,5 +1,5 @@
 # es_log_manage
--Java推送ES相关API整合使用实例
+- Java推送ES相关API整合使用实例
 
 ## 说明
 - 本项目为通过esclient与ES交互的常用API操作
